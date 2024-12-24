@@ -12,7 +12,7 @@ import Pretendard
 struct ContentView: View {
     init() {
         do {
-            try Pretendard.registFonts()
+            try Pretendard.registerFonts()
         } catch {
             fatalError("Fail reigst font")
         }

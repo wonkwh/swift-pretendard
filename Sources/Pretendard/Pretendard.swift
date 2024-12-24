@@ -4,25 +4,24 @@ import Foundation
 public enum Pretendard {}
 
 extension Pretendard {
+
     public enum Weight: String, CaseIterable {
         case regular
         case medium
         case semibold
         case bold
-        
+
         public var fontName: String {
+            let isKorean = Locale.current.languageCode == "ko"
             switch self {
             case .regular:
-                return "PretendardJP-Regular"
-                
+              return  isKorean ? "Pretendard-Regular" : "Poppins-Regular"
             case .medium:
-                return "PretendardJP-Medium"
-                
+              return isKorean ? "Pretendard-Medium" : "Poppins-Medium"
             case .semibold:
-                return "PretendardJP-SemiBold"
-                
+              return isKorean ? "Pretendard-SemiBold" : "Poppins-SemiBold"
             case .bold:
-                return "PretendardJP-Bold"
+              return isKorean ? "Pretendard-Bold" : "Poppins-Bold"
             }
         }
     }
@@ -32,10 +31,10 @@ extension Pretendard {
     @discardableResult
     public static func registFonts() throws -> Bool {
         try Weight.allCases.allSatisfy {
-            try Pretendard.Weight.registFont(
+            try Pretendard.Weight.registerFont(
                 bundle: .module,
                 fontName: $0.fontName,
-                fontExtension: "otf"
+                fontExtensions: ["otf", "ttf"]
             )
         }
     }
@@ -43,11 +42,14 @@ extension Pretendard {
 
 extension Pretendard.Weight {
     @discardableResult
-    fileprivate static func registFont(
+    fileprivate static func registerFont(
         bundle: Bundle,
         fontName: String,
-        fontExtension: String
+        fontExtensions: [String]
     ) throws -> Bool {
+
+      var isSuccess = false
+      for fontExtension in fontExtensions {
         guard
             let fontURL = bundle.url(forResource: fontName, withExtension: fontExtension),
             let fontDataProvider = CGDataProvider(url: fontURL as CFURL),
@@ -58,11 +60,12 @@ extension Pretendard.Weight {
         
         var error: Unmanaged<CFError>?
         
-        let isSuccess = CTFontManagerRegisterFontsForURL(fontURL as CFURL, .process, &error)
+        isSuccess = CTFontManagerRegisterFontsForURL(fontURL as CFURL, .process, &error)
         
         if let error = error?.takeUnretainedValue() {
             throw error
         }
+      }
         
         return isSuccess
     }
