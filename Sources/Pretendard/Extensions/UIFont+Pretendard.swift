@@ -2,11 +2,11 @@
 import UIKit
 
 extension UIFont {
-    public static func pretendard(
-        ofSize fontSize: CGFloat,
-        weight: Pretendard.Weight
-    ) -> UIFont? {
-        UIFont(name: weight.fontName, size: fontSize)
-    }
+  public static func pretendard(
+    ofSize fontSize: CGFloat,
+    weight: Pretendard.Weight = .regular
+  ) -> UIFont? {
+    UIFont(name: weight.fontName, size: fontSize)
+  }
 }
 #endif

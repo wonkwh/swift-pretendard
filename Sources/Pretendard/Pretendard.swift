@@ -4,13 +4,11 @@ import Foundation
 public enum Pretendard {}
 
 extension Pretendard {
-
   public enum Weight: String, CaseIterable {
     case regular
     case medium
     case semibold
     case bold
-
 
     public var fontName: String {
       let isKorean = Locale.current.languageCode == "ko"
