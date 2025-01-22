@@ -2,6 +2,7 @@
 
 - Swift에서 사용할 수 있는 system-ui 대체 글꼴 [Pretendard](https://github.com/orioncactus/pretendard)
 - 한글에서는 Pretendard Font를 사용하고 영문에서는 Poppins 를 사용하도록 추가 수정
+- `only_pretendard` branch에서 poppins 폰트를 제거하고 Pretendard만 사용하도록 수정
 
 ## 설치
 
@@ -12,7 +13,7 @@ let package = Package(
     // name, platforms, products, etc.
     dependencies: [
         // other dependencies
-        .package(url: "https://github.com/apple/swift-pretendard", from: "0.3.0"),
+        .package(url: "https://github.com/wonkwh/swift-pretendard", from: "0.3.0"),
     ],
     targets: [
         .target(
@@ -46,6 +47,3 @@ let package = Package(
   - Regular
   - Semi Bold
 
-## 실험 필요
-
-- [ ] variable font를 사용하여 다양한 Weight를 지원 (퍼포먼스 벤치마크 필요)

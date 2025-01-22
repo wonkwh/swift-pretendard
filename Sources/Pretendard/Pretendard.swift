@@ -11,16 +11,15 @@ extension Pretendard {
     case bold
 
     public var fontName: String {
-      let isKorean = Locale.current.languageCode == "ko"
       switch self {
       case .regular:
-        return  isKorean ? "Pretendard-Regular" : "Poppins-Regular"
+        return "Pretendard-Regular"
       case .medium:
-        return isKorean ? "Pretendard-Medium" : "Poppins-Medium"
+        return "Pretendard-Medium"
       case .semibold:
-        return isKorean ? "Pretendard-SemiBold" : "Poppins-SemiBold"
+        return "Pretendard-SemiBold"
       case .bold:
-        return isKorean ? "Pretendard-Bold" : "Poppins-Bold"
+        return "Pretendard-Bold"
       }
     }
   }
@@ -49,7 +48,7 @@ extension Pretendard.Weight {
     guard
       let fontURL = bundle.url(forResource: fontName, withExtension: fontExtension),
       let fontDataProvider = CGDataProvider(url: fontURL as CFURL),
-      let _ = CGFont(fontDataProvider)
+      CGFont(fontDataProvider) != nil
     else {
       fatalError("Couldn't create font from filename: \(fontName).\(fontExtension)")
     }
@@ -61,7 +60,6 @@ extension Pretendard.Weight {
     if let error = error?.takeUnretainedValue() {
       throw error
     }
-
 
     return isSuccess
   }
